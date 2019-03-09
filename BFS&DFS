@@ -1,0 +1,45 @@
+BFS(Breadth-First Search, 너비 우선 탐색)
+Queue의 성질을 이용해서 한 점과 연결된 점들을 다 탐색한 뒤 탐색한 점들 중 하나로 가서 그 점과 연결된 점(이전의 점은 굳이 탐색 X)들을 탐색함.
+FIFO.
+
+public static void bfs(int a, int[][] place, int[] check){//a는 시작점, place는 이차행렬로 나타낸 정점 간 연결 상태, check는 특정점에 갔는지 체크
+    	int nextA=a-1;//받을 때 1~ 범위로 받았는데 실제 check나 place에서는 0~이기 때문에 하나씩 줄여씀.
+    	int b=place.length;
+    	Queue<Integer> q=new LinkedList<Integer>();//Queue에 탐색해야 할 점들을 차례로 넣고 while문 안의 poll()로 꺼내쓸 예정.
+    	q.add(nextA);//첫 점 집어넣음
+    	System.out.print((nextA+1)+" ");
+    	check[nextA]=1;//check를 boolean[]으로 해도 되는데 int[]로 짰음.
+    	
+    	while(!q.isEmpty()){//가지않은 점만 q에 집어넣으므로 연결된 정점을 다 가보았을 때는 while문이 멈춤.
+    		nextA=q.poll();
+    		for(int i=0;i<b;i++){
+    			if(place[nextA][i]==1&&check[i]!=1){//연결되어 있고 가본 적 없을 때.
+    				q.add(i);
+    				place[nextA][i]=0;
+    				System.out.print((i+1)+" ");
+    				check[i]=1;
+    			}
+    		}
+    	}
+    	System.out.println(" ");
+    	
+    	return;
+    }
+}
+
+DFS(Depth-First Search, 깊이 우선 탐색)
+Stack의 성질을 이용해서 한 점에서 연결된 점 중 한 점으로 가는 과정을 반복, 만약 어떤 점에 연결된 점을 다 가보았을 경우 이전 단계로 되돌아와
+(pop 이용) 다시 안 가본 점에 대해 같은 과정을 반복함. Recursive 이용해서 할 때가 많다.
+
+public static void dfs(int a, int[][] place,int[] check){//input은 bfs와 같은 의미.
+    int nextA=a-1;
+  	int b=place.length;
+   	check[nextA]=1;
+   	System.out.print((nextA+1)+" ");
+   	
+   	for(int i=1;i<=b;i++){
+   		if(place[nextA][i-1]==1&&check[i-1]==0){
+   			dfs(i,place,check);
+   		}
+   	}
+}
