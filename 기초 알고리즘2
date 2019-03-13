@@ -131,3 +131,46 @@ h(k, i) = (h_1(k)+i*h_2(k)) mod m
 *h_2(k)는 해쉬 테이블의 크기 m과 서로소 관계여야 함.*
 위를 가능케 하는 가장 쉬운 방법은 m=2^p승으로 두고 h_2가 늘 홀수가 되게끔 하는 것이다.
 or m=prime number, h_2를 m보다 작은 양수로 정할 수도 있음.
+
+그래프(Graph)의 기초
+그래프 G는 (V, E)의 쌍이다.
+V= 정점(vertex)의 집합
+E= 간선(edge)의 집합
+정점은 독립된 개체, 간선은 두 정점을 잇는 개체.
+간선은 방향이 있을 수도, 없을 수도 있음.(A directed graph/an undirected graph.)
+Directed Graph: 방향성이 있는 간선을 가진 그래프.
+(간선이 방향을 가지기 때문에 화살표가 있는 선을 사용함.)
+각 간선은 한 정점을 떠나 한 정점으로 들어간다.
+각 정점은 숫자나 이름으로 구분하며, 각 간선은 간선이 떠나고 도착하는 정점의 쌍을 순서대로 적은 것으로 구분.
+Directed graph에서는 두 개의 정점에 대해 최대 2개의 간선이 존재.((a,b), (b,a))
+Undirected Graph: 무방향성 간선을 가진 그래프.
+(간선에 방향이 없으므로 직선을 사용함.)
+간선 (u,v)=(v,u).
+Adjacency(인접): (u,v)라는 간선이 있다면 정점 v와 정점 u는 인접하다.
+Degree(차수)(Directed 기준)
+  1. Out-degree(진출차수): 정점을 나가는 간선의 수
+  2. In-degree(진입차수): 정점으로 들어오는 간선의 수
+  3. Degree = In-degree + Out-degree
+  Undirected graph에서는 degree만 정의 가능함.
+Path(경로): 정점 u로부터 정점 v까지 가는데 거치는 정점의 순서.
+경로의 길이=경로에 있는 간선의 수.
+Simple path(단순경로): 경로에 있는 모든 정점들이 서로 다른 경우.
+Cycle & simple cycle(순환과 단일순환)
+경로에서 첫 정점=마지막 정점이라면 순환이 된다.
+순환 내부에서 두번째 정점부터 마지막 정점까지 서로 다르다면 단일순환이다.
+Acyclic graph(비순환 그래프): 순환이 없는 그래프
+Connected graph(연결 그래프): 정점의 모든 쌍이 경로를 가지는 무방향성 그래프.
+Connected components(연결 요소): 무방향성 그래프에서 정점들이 최대한 연결되어 있는 하위 그래프.
+Strongly connected(강한 연결): Directed graph에서 정점의 각 쌍이 서로 도달 가능한 경우.
+Strongly connected components(강한 연결 요소): Directed graph에서 최대한 많은 정점을 강하게 연결한 하위 그래프.
+Complete graph(완전 그래프): Undirected graph에서 모든 정점의 쌍이 서로 인접하는 경우.
+Forest(포레스트): 순환하지 않는 무방향성 그래프.
+Tree(트리): 포레스트가 연결되어 있는 경우
+연결된 비순환 무방향성 그래프.(Connected, acyclic, undirected graph.)
+두 정점은 단일 단순 경로로 연결됨.
+간선을 제거한다면 그래프는 더 이상 연결되지 않고, 간선을 추가한다면 그래프는 cycle을 포함하게 됨.
+(|E|=|V|-1)을 만족함.
+Dag(Directed Acyclic Graph): 비순환 방향성 그래프.
+그래프에서 간선의 개수
+Directed graph: |E|<=(|V|)^2
+Undirected graph: |E|<=|V|(|V|-1)/2
