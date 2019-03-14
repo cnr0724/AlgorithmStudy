@@ -1,0 +1,56 @@
+그래프의 표현
+1. Adjacency-list representation
+정점 하나당 리스트 하나인 크기가 |V|인 배열.
+정점 하나에 인접한 모든 정점을 리스트에 저장.
+방향성 그래프 코드
+(Undirected graph는 Directed graph로 변환해서 저장한다. 이 경우 space complexity는 Θ(V+E)가 됨.)
+C++:
+class Graph{
+  int numVertices;
+  list<int> *adjLists;
+  
+public:
+  Graph(int V);
+  void addEdge(int src, int dest);
+}
+
+JAVA:
+class Graph{
+  private int numVertices;
+  private LinkedList<integer> adjLists[];
+}
+2. Adjacency-matrix representation
+크기가 |V| * |V|인 행렬
+두 정점 i와 j를 잇는 간선이 있다면 행렬의 (i, j)는 1 아니면 0.
+Space complexity: Θ(V^2)->간선의 개수와는 상관없이 늘 |V|*|V|인 행렬을 만들어야 함.
+무방향성은 양방향으로 간선이 존재하므로 하위 삼각 행렬=상위 삼각 행렬.
+비교:
+저장공간: G가 성기면 인접 리스트가 낫고 촘촘하면 행렬이 나음.(행렬은 1비트만 사용.)
+간선을 찾는데 걸리는 시간:
+인접행렬=Θ(1)
+인접리스트=Θ(V)
+모든 간선을 찾거나 방문하는데 걸리는 시간:
+인접행렬=Θ(V^2)
+인접리스트=Θ(V+E)
+*가중 그래프(Weighted graph)
+간선이 수로 표현되는 값을 갖는 그래프.
+인접행렬에서는 1 대신 간선의 값을 저장함.
+
+트리탐색.
+BFS(Breadth-First Search)
+거리(Distance)
+정점 u부터 정점 v까지의 거리=정점 u부터 정점 v까지의 최단 경로에 있는 간선의 수
+BFS란?
+그래프 G=(V, E)와 시작점 s가 주어졌을 때 s에서 도달 가능한 모든 간선을 탐색하여 찾는 과정.
+탐색을 하며 시작점으로부터 거리도 계산.
+직전정점 그래프 G_π = (V_π, E_π)
+시작점으로부터 각 정점을 도달하기 직전 들려야 하는 정점으로 만든 하위 그래프.
+정점의 색 구분:
+초기화한 정점=흰색
+발견된 정점=회색
+완료된(모든 인점한 정점을 조사한) 정점=검정색
+BFS는 그래프를 입력받았을 때 초기화하는 것과 vertex를 탐색, 체크하는 과정으로 나뉘어 있음.
+수행시간 분석:
+초기화 시간: Θ(V)
+그래프 탐색 시간: O(V+E)
+따라서 전체 수행시간: O(V+E)
