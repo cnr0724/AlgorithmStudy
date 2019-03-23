@@ -54,3 +54,48 @@ BFS는 그래프를 입력받았을 때 초기화하는 것과 vertex를 탐색,
 초기화 시간: Θ(V)
 그래프 탐색 시간: O(V+E)
 따라서 전체 수행시간: O(V+E)
+
+DFS(Depth-First Search)
+타임스탬프(Timestamp)
+각 정점은 타임스탬프를 두개씩 갖고 있음.
+1. v.d: Discovery time, when v is grayed
+2. v.f: Finishing time, when v is blacken
+정점 색의 의미는 bfs와 같음.
+Depth-first forest: 직전 정점 그래프는 깊이 우선 탐색 숲이 된다.
+Parenthesis theorem for gray interval
+같이 DFS라면 상위 정점들이 하위 정점들을 전부 포함.(떨어진 경우는 별개.)
+간선의 분류(Classification of edges)
+트리 간선
+후향 간선
+가로 간선
+전향 간선.
+수행시간 분석: Θ(V+E)
+
+다익스트라 알고리즘
+최단 경로 문제에 대한 정의
+그래프가 주어져 있고 간선이 값을 갖거나 vertex에 연결된 간선이 여러개일 때 제일 합이 적은 경로.
+정점 u에서 v까지의 최단 경로=경로의 값이 가장 작은 경로.
+경로의 구분:
+Single-source & single-destination
+Single-source
+Single-destination
+All pairs
+가중 간선(Edge weight)
+가중 경로(Path weight)
+다익스트라 알고리즘 (Dijkstra's algorithm)
+하나의 source에서 하나의 destination을 가는 최단경로를 찾는 알고리즘.
+*간선이 음의 값을 가지면 안 됨.
+수도코드:
+DIJKSTRA(G, w, s)
+  INITIALIZE-SINGLE-SOURCE(G, s) //source 인식
+  S<-0
+  Q<-V[G]
+  while Q!=empty
+    do u<-EXTRACT-MIN(Q)
+      S<-S(atom of {u})
+      for each vertex w (atom of Adj[u])
+        do RELAX(u, v, w)
+수행시간 분석:
+Array=O(V^2)
+Heap=O(VlogV+ElogV)
+Fibonacci heap=O(VlogV+E)
