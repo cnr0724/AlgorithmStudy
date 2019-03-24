@@ -43,3 +43,27 @@ public static void dfs(int a, int[][] place,int[] check){//input은 bfs와 같�
    		}
    	}
 }
+
+벨만-포드 알고리즘
+음수 간선 값(Negative weight edges)
+음수 간선은 문제가 되지 않는데, 시작점에서 도착점까지 가는 도중에 존재하는 음수 순환은 문제가 됨.
+최단 경로와 순환:
+최단 경로는 순환을 포함해서는 안 되며, 최대 길이는 |V|-1이다.
+Prodecessor subgraph(직전 정점 하위 그래프)
+최단 경로 트리가 되며, 최적해 구조를 가짐.
+완화 (Relaxation)
+현재 경로값보다 더 적은 경로가 존재한다면 값을 변경한다.
+벨만-포드 알고리즘(The Bellman-Ford algorithm)
+하나의 시작점에서 하나의 도착점으로 가는 최단경로 문제 해결.
+(음의 간선이 있는 경우에도 문제를 해결함.)
+수도코드:
+BELLMAN-FORD(G, w, s)
+    INITIALIZE-SINGLE-SOURCE(G, s)
+        For i<-1 to |V|G||-1
+            do for each edge(u,v)(atom of E[G])
+                do RELAX(u, v, w)
+            for each edge(u, v)(atom of E[G])
+                do if d[v] > d[u] + w(u, v)
+                    then return FALSE
+        return TRUE
+수행시간 분석: O(VE)
