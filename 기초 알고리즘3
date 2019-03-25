@@ -99,3 +99,64 @@ DIJKSTRA(G, w, s)
 Array=O(V^2)
 Heap=O(VlogV+ElogV)
 Fibonacci heap=O(VlogV+E)
+
+벨만-포드 알고리즘
+음수 간선 값(Negative weight edges)
+음수 간선은 문제가 되지 않는데, 시작점에서 도착점까지 가는 도중에 존재하는 음수 순환은 문제가 됨.
+최단 경로와 순환:
+최단 경로는 순환을 포함해서는 안 되며, 최대 길이는 |V|-1이다.
+Prodecessor subgraph(직전 정점 하위 그래프)
+최단 경로 트리가 되며, 최적해 구조를 가짐.
+완화 (Relaxation)
+현재 경로값보다 더 적은 경로가 존재한다면 값을 변경한다.
+벨만-포드 알고리즘(The Bellman-Ford algorithm)
+하나의 시작점에서 하나의 도착점으로 가는 최단경로 문제 해결.
+(음의 간선이 있는 경우에도 문제를 해결함.)
+수도코드:
+BELLMAN-FORD(G, w, s)
+    INITIALIZE-SINGLE-SOURCE(G, s)
+        For i<-1 to |V|G||-1
+            do for each edge(u,v)(atom of E[G])
+                do RELAX(u, v, w)
+            for each edge(u, v)(atom of E[G])
+                do if d[v] > d[u] + w(u, v)
+                    then return FALSE
+        return TRUE
+수행시간 분석: O(VE)
+
+플로이드-와샬 알고리즘 (Floyd-Warshall algorithm)
+인접 행렬 W.
+i vertex에 vertex j가 인접하면 edge의 weight를, 아니면 무한대를 W_(i,j)에 넣음.
+최단경로 행렬 D.
+vertex i에서 j로 가는 방법들을 찾아서 최단경로의 길이를 D_(i,j)에 넣음.
+Prodecessor subgraph Pi.
+각 행렬의 값
+정점 i->j가 존재하지 않으면 NIL.
+Pi_(i,j)는 vertex j의 직전 vertex.
+수도코드1:
+PRINT-ALL-PAIRS-SHORTEST-PATH(Pi, i, j)
+if i=j
+  then print i
+  else if pi_(i,j)=NIL
+    then print "no path from" i " to" j " exists"
+    else PRINT-ALL-PAIRS-SHORTEST PATH(Pi, i, pi_(i,j))
+    print j
+최단 경로의 구성:
+플로이드-와샬 알고리즘은 중간 정점을 다 실험해봄.
+정점 집합이 V={1,2,...,n}이라고 하면 i, j가 V의 원소일 때 i와 j 사이 정점 집합 V에 속하는 모든 vertex를
+넣어보고 경로 값이 제일 작아지는 경로를 찾음.
+i~j 사이의 k에 대해 k가 중간 정점이 아니면 정점 {1,2,...,k-1}에 대해 조사함.
+만약 k가 중간 정점이면 두 경우로 나누어 더 작은 경로를 찾음.
+Recursive:
+i부터 j까지 최단경로를 (d_(i,j))^k라고 하면 {1,2,...,k}는 중간 정점의 집합.
+(d_(i,j))^k=w_(i,j) if k=0, and min((d_(i,j))^(k-1),(d_(i,k))^(k-1),(d_(k,j))^(k-1)) if k>=1.
+수도코드2:
+FLOYD-WARSHALL(W)
+n<-rows[W]
+D^(0)<-W
+for k<-1 to n
+  do for i<-1 to n
+    do for j<-1 to n
+      do (d_(i,j))^k<-min((d_(i,j))^(k-1),(d_(i,k))^(k-1),(d_(k,j))^(k-1))
+  return D^(n)
+수행시간: Θ(V^3)
