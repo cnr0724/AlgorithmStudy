@@ -1,0 +1,57 @@
+탐욕 알고리즘(Greedy algorithm)
+현재 상황에서 가장 좋아보이는 답을 선택하는 방법.(알고리즘보다는 그냥 문제 풀이법.)
+각 부분에서의 최적이 전체에서의 최적이 될 것이라는 가정을 전제.
+하위 문제에 대한 해답이 나오기 전 선택.
+
+가중 무방향성 그래프(Weighted undirected graph)
+최소 신장 트리(Minimum Spanning Tree)
+비용이 최소가 되는 신장 트리를 찾는 법.
+
+일반적인 MST의 수도코드
+GENERIC-MST(G, w)
+A<-0
+while A does not form a spanning tree
+  do find an edge (u, v) that is safe for A
+  A<-A U {(u, v)}
+return A
+최소 신장트리는 한번에 간선이 한개씩 늘어남.
+
+프림 알고리즘(Prim's algorithm)
+Vertex를 기준으로 하는 알고리즘. 탐욕 알고리즘을 이용함.
+매 vertex마다 가장 값이 적은 간선을 선택함.
+cut(S, V-S)는 무방향성 그래프에서 정점을 두개로 나눈 집합
+간선 (u, v)의 끝점이 하나는 S에 있고 다른 하나가 V-S에 있는 경우를
+간선 (u, v)가 cut(S, V-S)를 가로지른다고 함.
+A에 속한 어떤 간선도 cut을 가로지르지 않으면 cut이 A를 보장한다고 하며,
+어떤 간선의 값이 cut을 가로지르는 간선 중 제일 작으면 그 간선은 가벼운 간선이라고 한다.
+
+집합 A에 속하는 간선은 늘 트리를 형성함.
+트리는 임의의 root vertex r에서 시작해 V에 속하는 모든 정점을 포함할 때까지 확장.
+각 단계에서 가벼운 간선(light edge)가 트리에 추가됨.
+수도코드:
+MST-PRIM(G, w, r)
+  for each u in V[G]
+    do key[u]<-infinite
+      pi[u]<-NIL
+  key[r]<-0
+  Q<-V[G]
+  while Q!=0
+    do u<-EXTRACT-MIN(Q)
+      for each v in Adj[u]
+        do if v in Q and w(u,v)<key[v]
+          then pi[v]<-u
+            key[v]<-w(u,v)
+
+쿠루스칼 알고리즘(Kruskal's algorithm)
+Edge를 기준으로 함.
+수도코드:
+MST-KRUSKAL(G,w)
+A<-0
+for each vertex v in V[G]
+  do MAKE-SET(v)
+sort the edges of E into nondecreasing order by weight w
+for each edge(u,v) in E, taken in nondeceasing order by weight
+  do if FIND-SET(u)!=FIND-SET(v)
+    then A<- A U {(u,v)}
+      UNION(u,v)
+return A
