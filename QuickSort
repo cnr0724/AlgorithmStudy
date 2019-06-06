@@ -1,0 +1,29 @@
+#Python
+
+def quickSort(array):
+    if len(array)<=1:
+        return array
+    
+    pivot=array[0]
+    left=getLeft(array[1:],pivot)
+    right=getRight(array[1:],pivot)
+    
+    return quickSort(left)+[pivot]+quickSort(right)
+    
+def getLeft(array,pivot):
+    result=[]
+    
+    for a in array:
+        if a<=pivot:
+            result.append(a)
+            
+    return result
+
+def getRight(array,pivot):
+    result=[]
+
+    for a in array:
+        if a>pivot:
+            result.append(a)
+            
+    return result
